@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: /
+    repoURL: https://github.com/arthur-r-oliveira/argocd-example-apps-guestbook.git
+    targetRevision: HEAD
