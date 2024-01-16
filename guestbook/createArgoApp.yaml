@@ -2,12 +2,21 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: guestbook
+  namespace: openshift-gitops
 spec:
   destination:
-    namespace: default
+    namespace: guestbook
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: /
+    directory:
+      recurse: true
+    path: guestbook
     repoURL: https://github.com/arthur-r-oliveira/argocd-example-apps-guestbook.git
-    targetRevision: HEAD
+    targetRevision: main
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
